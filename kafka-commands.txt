@@ -1,0 +1,22 @@
+cd C:/Yezdi/Softwares/kafka_2.12-2.5.0/bin/windows
+
+
+kafka-topics.bat --alter --zookeeper localhost:2181 --topic library-events --config min.insync.replicas=2
+
+zookeeper-server-start.bat ..\..\config\zookeeper.properties
+kafka-server-start.bat ..\..\config\server.properties
+kafka-server-start.bat ..\..\config\server9093.properties
+kafka-server-start.bat ..\..\config\server9094.properties
+kafka-server-start.bat ..\..\config\server9095.properties
+
+
+kafka-topics.bat --create --topic my-cluster-topic -zookeeper localhost:2181 --replication-factor 2 --partitions 2
+
+kafka-console-producer.bat --broker-list localhost:9093 --topic my-cluster-topic
+
+kafka-console-consumer.bat --bootstrap-server localhost:9093 --topic my-cluster-topic --from-beginning
+
+test-cluster-topic-0
+test-cluster-topic-1
+
+kafka-topics.bat --zookeeper localhost:2181
