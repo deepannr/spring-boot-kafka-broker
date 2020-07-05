@@ -1,0 +1,24 @@
+
+Configuration:
+  status: warn
+  Properties:
+    Property:
+      name: logFile
+      value: "logs/kafka-library-events-producer.log"
+  
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSZZZ} %-5p [%t] %X{callerApplication} %logger{1.} %M %msg%n"
+    RollingFile:
+      name: File
+      fileName: "${logFile}"
+      filePattern: ${logFile}-%d{yy-MM-dd}.gz
+      PatternLayout:
+        Pattern: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSZZZ} %-5p [%t] %X{callerApplication} %logger{1.} %M %msg%n"
+      Policies:
+          TimeBasedTriggeringPolicy:
+            interval: 1
+            modulate: true
