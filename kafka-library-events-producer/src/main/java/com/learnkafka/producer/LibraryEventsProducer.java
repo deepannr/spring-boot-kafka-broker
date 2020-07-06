@@ -31,7 +31,7 @@ public class LibraryEventsProducer {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	public void sendLibraryEventAsync(LibraryEvent libraryEvent) throws JsonProcessingException {
+	public ListenableFuture<SendResult<Integer, String>> sendLibraryEventAsync(LibraryEvent libraryEvent) throws JsonProcessingException {
 		Integer key = libraryEvent.getLibraryEventId();
 		String value = objectMapper.writeValueAsString(libraryEvent.getBook()); 
 		
@@ -49,22 +49,24 @@ public class LibraryEventsProducer {
 				handleFailure(key, value, ex);
 			}
 		});
+		return listenableFuture;
 	}
 	
-	public void sendLibraryEventSync(LibraryEvent libraryEvent) throws JsonProcessingException {
+	public SendResult<Integer, String> sendLibraryEventSync(LibraryEvent libraryEvent) throws JsonProcessingException {
 		Integer key = libraryEvent.getLibraryEventId();
 		String value = objectMapper.writeValueAsString(libraryEvent.getBook()); 
-		
+		SendResult<Integer, String> result = null; 
 		try {
-			SendResult<Integer, String> result = kafkaTemplate.sendDefault(key, value).get();
+			result = kafkaTemplate.sendDefault(key, value).get();
 			handleSuccess(key, value, result);
 		} catch (InterruptedException | ExecutionException e) {
 			handleFailure(key, value, e);
 		}
+		return result;
 	}
 	
 	
-	public void sendLibraryEventAsync2(LibraryEvent libraryEvent) throws JsonProcessingException {
+	public ListenableFuture<SendResult<Integer, String>> sendLibraryEventAsync2(LibraryEvent libraryEvent) throws JsonProcessingException {
 		Integer key = libraryEvent.getLibraryEventId();
 		String value = objectMapper.writeValueAsString(libraryEvent.getBook()); 
 		
@@ -82,6 +84,7 @@ public class LibraryEventsProducer {
 				handleFailure(key, value, ex);
 			}
 		});
+		return listenableFuture;
 	}
 	
 	private ProducerRecord<Integer, String> buildProducerRecord(String topic, Integer key, String value) {

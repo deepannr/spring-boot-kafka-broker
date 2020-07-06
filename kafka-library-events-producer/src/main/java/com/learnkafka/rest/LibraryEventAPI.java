@@ -1,7 +1,7 @@
 package com.learnkafka.rest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +16,18 @@ import com.learnkafka.domain.LIBRARY_EVENT_TYPE;
 import com.learnkafka.domain.LibraryEvent;
 import com.learnkafka.producer.LibraryEventsProducer;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/kafka-producer")
+@Slf4j
 public class LibraryEventAPI {
-	private static final Logger log = LogManager.getLogger(LibraryEventAPI.class);
 	
 	@Autowired
 	private LibraryEventsProducer producer;
 
 	@PostMapping("/v1/asynchronous")
-	public ResponseEntity<LibraryEvent> sendLibraryEventAsync(@RequestBody LibraryEvent libraryEvent) throws JsonProcessingException {
+	public ResponseEntity<LibraryEvent> sendLibraryEventAsync(@RequestBody @Valid LibraryEvent libraryEvent) throws JsonProcessingException {
 		log.info("Before Sending Message V1 Async");
 		libraryEvent.setLibraryEventType(LIBRARY_EVENT_TYPE.NEW);
 		producer.sendLibraryEventAsync(libraryEvent);

@@ -64,9 +64,19 @@ public class LibraryEventAPIIntegrationTest {
 	@Timeout(5)
 	public void testSendLibraryEventAsync() {
 		//Given
-		Book book = Book.builder().bookId(123).bookName("Kafka").bookAuthor("Dee").build();
+		Book book = Book
+				.builder()
+				.bookId(123)
+				.bookName("Kafka")
+				.bookAuthor("Dee")
+				.build();
 
-		LibraryEvent libraryEvent = LibraryEvent.builder().libraryEventId(111).libraryEventType(LIBRARY_EVENT_TYPE.NEW).book(book).build();
+		LibraryEvent libraryEvent = LibraryEvent
+						.builder()
+						.libraryEventId(111)
+						.libraryEventType(LIBRARY_EVENT_TYPE.NEW)
+						.book(book)
+						.build();
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("content-type", MediaType.APPLICATION_JSON_VALUE);
