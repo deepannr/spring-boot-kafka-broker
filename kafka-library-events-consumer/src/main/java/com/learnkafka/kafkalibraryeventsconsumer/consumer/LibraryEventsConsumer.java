@@ -1,17 +1,17 @@
 package com.learnkafka.kafkalibraryeventsconsumer.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 @Component
+@Slf4j
 public class LibraryEventsConsumer {
-	private static final Logger log = LogManager.getLogger(LibraryEventsConsumer.class);
 	
-	@KafkaListener(topics = {"library-events"})
+	@KafkaListener(topics = {"library-events"}, groupId = "temp-id")
 	public void fetchMessage(ConsumerRecord<Integer, String> consumerRecord) {
 		log.info("Customer Record: {}", consumerRecord);
 	}
