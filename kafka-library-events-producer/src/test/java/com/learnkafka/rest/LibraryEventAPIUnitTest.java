@@ -9,7 +9,7 @@ import com.learnkafka.domain.Book;
 import com.learnkafka.domain.LIBRARY_EVENT_TYPE;
 import com.learnkafka.domain.LibraryEvent;
 import com.learnkafka.producer.LibraryEventsProducer;
-import com.learnkafka.rest.LibraryEventAPI;
+import com.learnkafka.rest.LibraryEventsAPI;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(LibraryEventAPI.class)
+@WebMvcTest(LibraryEventsAPI.class)
 @AutoConfigureMockMvc
 public class LibraryEventAPIUnitTest {
 	

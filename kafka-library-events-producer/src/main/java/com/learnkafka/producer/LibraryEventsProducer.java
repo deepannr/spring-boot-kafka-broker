@@ -33,7 +33,7 @@ public class LibraryEventsProducer {
 	
 	public ListenableFuture<SendResult<Integer, String>> sendLibraryEventAsync(LibraryEvent libraryEvent) throws JsonProcessingException {
 		Integer key = libraryEvent.getLibraryEventId();
-		String value = objectMapper.writeValueAsString(libraryEvent.getBook()); 
+		String value = objectMapper.writeValueAsString(libraryEvent); 
 		
 		ListenableFuture<SendResult<Integer, String>> listenableFuture = kafkaTemplate.sendDefault(key, value);
 		
@@ -54,7 +54,7 @@ public class LibraryEventsProducer {
 	
 	public SendResult<Integer, String> sendLibraryEventSync(LibraryEvent libraryEvent) throws JsonProcessingException {
 		Integer key = libraryEvent.getLibraryEventId();
-		String value = objectMapper.writeValueAsString(libraryEvent.getBook()); 
+		String value = objectMapper.writeValueAsString(libraryEvent); 
 		SendResult<Integer, String> result = null; 
 		try {
 			result = kafkaTemplate.sendDefault(key, value).get();
@@ -68,7 +68,7 @@ public class LibraryEventsProducer {
 	
 	public ListenableFuture<SendResult<Integer, String>> sendLibraryEventAsync2(LibraryEvent libraryEvent) throws JsonProcessingException {
 		Integer key = libraryEvent.getLibraryEventId();
-		String value = objectMapper.writeValueAsString(libraryEvent.getBook()); 
+		String value = objectMapper.writeValueAsString(libraryEvent); 
 		
 		ListenableFuture<SendResult<Integer, String>> listenableFuture = kafkaTemplate.send(buildProducerRecord("library-events", key, value));
 		
