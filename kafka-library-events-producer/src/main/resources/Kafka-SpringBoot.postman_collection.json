@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "89561f21-fbcb-4181-b5c5-baa5617c2ff3",
+		"name": "Kafka-SpringBoot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "kafka-producer",
+			"item": [
+				{
+					"name": "Asynchnous-V1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"book\" : {\r\n        \"bookName\" : \"DeeSubs\",\r\n        \"bookAuthor\" : \"Dees\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/kafka-producer/v1/asynchronous",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"kafka-producer",
+								"v1",
+								"asynchronous"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Synchnous-V2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"libraryEventId\" : 145,\r\n    \"book\" : {\r\n        \"bookId\" : 26,\r\n        \"bookName\" : \"DeeBook\",\r\n        \"bookAuthor\" : \"Deep\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/kafka-producer/v2/synchronous",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"kafka-producer",
+								"v2",
+								"synchronous"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asynchnous-V3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"libraryEventId\" : 2620,\r\n    \"book\" : {\r\n        \"bookId\" : 191,\r\n        \"bookName\" : \"BookDee\",\r\n        \"bookAuthor\" : \"Deepan\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/kafka-producer/v3/asynchronous",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"kafka-producer",
+								"v3",
+								"asynchronous"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asynchnous-V3",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"libraryEventId\" : 1,\r\n    \"book\" : {\r\n        \"bookId\" : 2,\r\n        \"bookName\" : \"BookDees\",\r\n        \"bookAuthor\" : \"Deepan\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/kafka-producer/v3/asynchronous",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"kafka-producer",
+								"v3",
+								"asynchronous"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
