@@ -1,0 +1,35 @@
+https://github.com/dilipsundarraj1/kafka-for-developers-using-spring-boot/blob/master/Kafka_Security.md
+
+Generate key store
+keytool -list -v -keystore server.keystore.jks
+
+See the contents of the server.keystore.jks file
+keytool -list -v -keystore server.keystore.jks 
+
+
+Create a new private key and certificate
+openssl req -config "C:\Yezdi\Softwares\openssl-0.9.8k_X64\openssl.cnf" -new -x509 -keyout ca-key -out ca-cert -days 365 -subj "/CN=local-security-CA"
+ca-key - private key
+ca-cert - certificate
+CN=local-security-CA - Local service authority
+
+
+Certificate Signing Request(CSR)
+keytool -keystore server.keystore.jks -alias localhost -certreq -file cert-file
+
+Signing the certificate
+openssl x509 -req -CA ca-cert -CAkey ca-key -in cert-file -out cert-signed -days 365 -CAcreateserial -passin pass:password
+
+To view the content inside the file cert-signed, run the below command.
+keytool -printcert -v -file cert-signed
+
+Adding the Signed Cert in to the KeyStore file
+keytool -keystore server.keystore.jks -alias CARoot -import -file ca-cert
+keytool -keystore server.keystore.jks -alias localhost -import -file cert-signed
+
+Add these to all 4 server*.properties files
+listeners=PLAINTEXT://localhost:9094, SSL://localhost:9194
+ssl.keystore.location=C:/Yezdi/StudyProjects/SpringBootAndJPA/Code/spring-boot-kafka-broker/SSL/server.keystore.jks
+ssl.keystore.password=DeeKafka
+ssl.key.password=password
+ssl.endpoint.identification.algorithm=
